@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management System - Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-boxes"></i> Inventory Pro</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item active">
+                    <a href="index.html" class="nav-link">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="inventory.html" class="nav-link">
+                        <i class="fas fa-box"></i>
+                        <span>Inventory</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="pos.html" class="nav-link">
+                        <i class="fas fa-cash-register"></i>
+                        <span>Point of Sale</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="invoices.html" class="nav-link">
+                        <i class="fas fa-file-invoice"></i>
+                        <span>Invoices</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="customers.html" class="nav-link">
+                        <i class="fas fa-users"></i>
+                        <span>Customers</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="reports.html" class="nav-link">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Reports</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="settings.html" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <h1>Dashboard</h1>
+                    <p>Welcome back, Admin! Here's your business overview.</p>
+                </div>
+                <div class="header-right">
+                    <div class="search-bar">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search...">
+                    </div>
+                    <div class="user-menu">
+                        <img src="https://via.placeholder.com/40" alt="User" class="user-avatar">
+                        <span>Admin User</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>₦4,080,000</h3>
+                        <p>Today's Sales</p>
+                        <span class="stat-change positive">+12.5% <i class="fas fa-arrow-up"></i></span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>156</h3>
+                        <p>Orders Today</p>
+                        <span class="stat-change positive">+8.3% <i class="fas fa-arrow-up"></i></span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>1,247</h3>
+                        <p>Products in Stock</p>
+                        <span class="stat-change negative">-2.1% <i class="fas fa-arrow-down"></i></span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>89</h3>
+                        <p>Active Customers</p>
+                        <span class="stat-change positive">+5.7% <i class="fas fa-arrow-up"></i></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="charts-section">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Sales Overview</h3>
+                        <div class="chart-actions">
+                            <select class="chart-period">
+                                <option>Last 7 Days</option>
+                                <option>Last 30 Days</option>
+                                <option>Last 3 Months</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="salesChart" width="400" height="200"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Top Products</h3>
+                    </div>
+                    <div class="top-products">
+                        <div class="product-item">
+                            <div class="product-info">
+                                <h4>VISCA 75AH Battery</h4>
+                                <p>Car Batteries</p>
+                            </div>
+                            <div class="product-stats">
+                                <span class="product-sales">₦780,000</span>
+                                <span class="product-units">10 units</span>
+                            </div>
+                        </div>
+                        <div class="product-item">
+                            <div class="product-info">
+                                <h4>SOLITE 100AH</h4>
+                                <p>Car Batteries</p>
+                            </div>
+                            <div class="product-stats">
+                                <span class="product-sales">₦250,000</span>
+                                <span class="product-units">2 units</span>
+                            </div>
+                        </div>
+                        <div class="product-item">
+                            <div class="product-info">
+                                <h4>RUN-ALL 75AH Battery</h4>
+                                <p>Car Batteries</p>
+                            </div>
+                            <div class="product-stats">
+                                <span class="product-sales">₦742,500</span>
+                                <span class="product-units">15 units</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="recent-activity">
+                <div class="activity-header">
+                    <h3>Recent Activity</h3>
+                    <a href="#" class="view-all">View All</a>
+                </div>
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h4>New sale completed</h4>
+                            <p>VISCA 100AH Battery sold to EXPRESS AUTO</p>
+                            <span class="activity-time">2 minutes ago</span>
+                        </div>
+                        <div class="activity-amount">
+                            ₦80,000
+                        </div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h4>Low stock alert</h4>
+                            <p>SOLITE 62AH Battery running low (3 units left)</p>
+                            <span class="activity-time">15 minutes ago</span>
+                        </div>
+                        <div class="activity-amount warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h4>New customer registered</h4>
+                            <p>Premium Auto Parts added to customer database</p>
+                            <span class="activity-time">1 hour ago</span>
+                        </div>
+                        <div class="activity-amount">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-file-invoice"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h4>Invoice generated</h4>
+                            <p>Invoice #INV-2025-007 sent to EXPRESS AUTO</p>
+                            <span class="activity-time">2 hours ago</span>
+                        </div>
+                        <div class="activity-amount">
+                            ₦4,080,000
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 

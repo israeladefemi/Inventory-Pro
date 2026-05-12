@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoices - Inventory Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="invoices-styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-boxes"></i> Inventory Pro</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="inventory.html" class="nav-link">
+                        <i class="fas fa-box"></i>
+                        <span>Inventory</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="pos.html" class="nav-link">
+                        <i class="fas fa-cash-register"></i>
+                        <span>Point of Sale</span>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a href="invoices.html" class="nav-link">
+                        <i class="fas fa-file-invoice"></i>
+                        <span>Invoices</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="customers.html" class="nav-link">
+                        <i class="fas fa-users"></i>
+                        <span>Customers</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="reports.html" class="nav-link">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Reports</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="settings.html" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <h1>Invoices</h1>
+                    <p>Manage B2B sales and customer invoices</p>
+                </div>
+                <div class="header-right">
+                    <div class="search-bar">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="invoiceSearch" placeholder="Search invoices...">
+                    </div>
+                    <button class="btn btn-primary" onclick="openCreateInvoiceModal()">
+                        <i class="fas fa-plus"></i> Create Invoice
+                    </button>
+                </div>
+            </header>
+
+            <!-- Invoice Stats -->
+            <div class="invoice-stats">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <i class="fas fa-file-invoice"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>156</h3>
+                        <p>Total Invoices</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>23</h3>
+                        <p>Pending Payment</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>₦12.5M</h3>
+                        <p>Outstanding Amount</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>133</h3>
+                        <p>Paid Invoices</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filters and Actions -->
+            <div class="invoice-controls">
+                <div class="filters">
+                    <select id="statusFilter" class="filter-select">
+                        <option value="">All Status</option>
+                        <option value="paid">Paid</option>
+                        <option value="pending">Pending</option>
+                        <option value="overdue">Overdue</option>
+                        <option value="draft">Draft</option>
+                    </select>
+                    <select id="customerFilter" class="filter-select">
+                        <option value="">All Customers</option>
+                        <option value="EXPRESS AUTO">EXPRESS AUTO</option>
+                        <option value="Premium Auto Parts">Premium Auto Parts</option>
+                        <option value="City Motors">City Motors</option>
+                    </select>
+                    <select id="dateFilter" class="filter-select">
+                        <option value="">All Time</option>
+                        <option value="today">Today</option>
+                        <option value="week">This Week</option>
+                        <option value="month">This Month</option>
+                        <option value="quarter">This Quarter</option>
+                    </select>
+                </div>
+                <div class="actions">
+                    <button class="btn btn-secondary" onclick="exportInvoices()">
+                        <i class="fas fa-download"></i> Export
+                    </button>
+                    <button class="btn btn-secondary" onclick="bulkActions()">
+                        <i class="fas fa-tasks"></i> Bulk Actions
+                    </button>
+                </div>
+            </div>
+
+            <!-- Invoices Table -->
+            <div class="invoice-table-container">
+                <table class="invoice-table" id="invoiceTable">
+                    <thead>
+                        <tr>
+                            <th>
+                                <input type="checkbox" id="selectAll" onchange="toggleSelectAll()">
+                            </th>
+                            <th>Invoice #</th>
+                            <th>Customer</th>
+                            <th>Date</th>
+                            <th>Due Date</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="invoiceTableBody">
+                        <!-- Invoices will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Create/Edit Invoice Modal -->
+    <div id="invoiceModal" class="modal">
+        <div class="modal-content large-modal">
+            <div class="modal-header">
+                <h3 id="invoiceModalTitle">Create New Invoice</h3>
+                <span class="close" onclick="closeInvoiceModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="invoiceForm">
+                    <!-- Customer Selection -->
+                    <div class="form-section">
+                        <h4>Customer Information</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="invoiceCustomer">Customer</label>
+                                <select id="invoiceCustomer" required>
+                                    <option value="">Select Customer</option>
+                                    <option value="1">EXPRESS AUTO</option>
+                                    <option value="2">Premium Auto Parts</option>
+                                    <option value="3">City Motors</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="invoiceDate">Invoice Date</label>
+                                <input type="date" id="invoiceDate" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="dueDate">Due Date</label>
+                                <input type="date" id="dueDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="paymentTerms">Payment Terms</label>
+                                <select id="paymentTerms">
+                                    <option value="net30">Net 30</option>
+                                    <option value="net15">Net 15</option>
+                                    <option value="net7">Net 7</option>
+                                    <option value="immediate">Immediate</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Products Section -->
+                    <div class="form-section">
+                        <h4>Products</h4>
+                        <div class="products-section">
+                            <div class="product-row" id="productRow0">
+                                <div class="product-select">
+                                    <select class="product-select-input" onchange="updateProductPrice(0)">
+                                        <option value="">Select Product</option>
+                                        <option value="1" data-price="80000">VISCA 100AH BATTERY - ₦80,000</option>
+                                        <option value="2" data-price="125000">SOLITE 100AH - ₦125,000</option>
+                                        <option value="3" data-price="70000">RUN ALL 90AH BATTERY - ₦70,000</option>
+                                        <option value="4" data-price="85000">VISCA 80AH L Exe European Standard Batt - ₦85,000</option>
+                                        <option value="5" data-price="49500">RUN-ALL 75AH BATTERY - ₦49,500</option>
+                                    </select>
+                                </div>
+                                <div class="quantity-input">
+                                    <input type="number" class="quantity-input-field" value="1" min="1" onchange="calculateRowTotal(0)">
+                                </div>
+                                <div class="price-display">
+                                    <span class="price-amount">₦0</span>
+                                </div>
+                                <div class="total-display">
+                                    <span class="total-amount">₦0</span>
+                                </div>
+                                <div class="remove-product">
+                                    <button type="button" class="remove-btn" onclick="removeProductRow(0)" style="display: none;">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-secondary" onclick="addProductRow()">
+                            <i class="fas fa-plus"></i> Add Product
+                        </button>
+                    </div>
+
+                    <!-- Totals Section -->
+                    <div class="form-section">
+                        <h4>Invoice Summary</h4>
+                        <div class="invoice-summary">
+                            <div class="summary-row">
+                                <span>Subtotal:</span>
+                                <span id="invoiceSubtotal">₦0.00</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Tax (7.5%):</span>
+                                <span id="invoiceTax">₦0.00</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Discount:</span>
+                                <input type="number" id="invoiceDiscount" value="0" min="0" step="0.01" onchange="calculateInvoiceTotal()">
+                            </div>
+                            <div class="summary-row total-row">
+                                <span>Total:</span>
+                                <span id="invoiceTotal">₦0.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notes Section -->
+                    <div class="form-section">
+                        <h4>Additional Information</h4>
+                        <div class="form-group">
+                            <label for="invoiceNotes">Notes</label>
+                            <textarea id="invoiceNotes" rows="3" placeholder="Add any additional notes or terms..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn-secondary" onclick="closeInvoiceModal()">Cancel</button>
+                        <button type="button" class="btn btn-secondary" onclick="saveAsDraft()">Save as Draft</button>
+                        <button type="submit" class="btn btn-primary">Create Invoice</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Invoice Preview Modal -->
+    <div id="invoicePreviewModal" class="modal">
+        <div class="modal-content large-modal">
+            <div class="modal-header">
+                <h3>Invoice Preview</h3>
+                <span class="close" onclick="closeInvoicePreviewModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="invoice-preview" id="invoicePreview">
+                    <!-- Invoice preview will be generated here -->
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeInvoicePreviewModal()">Close</button>
+                    <button type="button" class="btn btn-secondary" onclick="printInvoice()">
+                        <i class="fas fa-print"></i> Print
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="sendInvoice()">
+                        <i class="fas fa-envelope"></i> Send to Customer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="invoices-script.js"></script>
+</body>
+</html> 
